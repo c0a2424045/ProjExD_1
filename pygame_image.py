@@ -21,16 +21,20 @@ def main():
             if event.type == pg.QUIT: return
         
         key_lst = pg.key.get_pressed()
+        dx, dy = 0, 0
         if key_lst[pg.K_UP]:
-            kk_rct.move_ip((-1, -1))
+            dx, dy = -1, -1
         elif key_lst[pg.K_DOWN]:
-            kk_rct.move_ip((-1, 1))
+            dx, dy = -1, 1
         elif key_lst[pg.K_RIGHT]:
-            kk_rct.move_ip((1, 0))
+            dx += 1
+        elif dx == 0 and dy == 0:
+            dx -= 1
+        kk_rct.move_ip((dx, dy))    
         x = tmr%3200
-        screen.blit(bg_img, [x, 0]) #1枚目
-        screen.blit(bg_img2, [x-1600, 0]) #2枚目
-        screen.blit(bg_img, [x-3200, 0]) #3枚目
+        screen.blit(bg_img, [-x, 0]) #1枚目
+        screen.blit(bg_img2, [-x+1600, 0]) #2枚目
+        screen.blit(bg_img, [-x+3200, 0]) #3枚目
         screen.blit(kk_img, kk_rct)
         pg.display.update()
         tmr += 1        
